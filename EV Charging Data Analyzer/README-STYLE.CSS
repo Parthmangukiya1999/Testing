@@ -1,0 +1,185 @@
+:root {
+  --bg: #ffffff;
+  --bg-code: #f6f8fa;
+  --text: #1f2328;
+  --text-muted: #57606a;
+  --border: #d0d7de;
+  --accent: #0969da;
+  --accent-soft: #ddf4ff;
+  --quote-bar: #d0d7de;
+  --max-width: 860px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #01060f;
+    --bg-code: #161b22;
+    --text: #e6edf3;
+    --text-muted: #9198a1;
+    --border: #30363d;
+    --accent: #4493f8;
+    --accent-soft: #0c2d6b;
+    --quote-bar: #30363d;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  padding: 48px 24px 96px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", Helvetica, Arial, sans-serif;
+  font-size: 22px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrapper, body > * {
+  max-width: var(--max-width);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 650;
+  line-height: 1.3;
+  margin-top: 2em;
+  margin-bottom: 0.6em;
+  scroll-margin-top: 24px;
+}
+
+h1 {
+  font-size: 2.2em;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid var(--border);
+  margin-top: 0;
+}
+
+h2 {
+  font-size: 1.6em;
+  padding-bottom: 0.25em;
+  border-bottom: 1px solid var(--border);
+}
+
+h3 { font-size: 1.3em; }
+h4 { font-size: 1.1em; }
+
+p, ul, ol, blockquote, table, pre { margin-bottom: 1em; }
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+ul, ol { padding-left: 1.9em; }
+li + li { margin-top: 0.25em; }
+
+blockquote {
+  margin: 1em 0;
+  padding: 0.2em 1em;
+  color: var(--text-muted);
+  border-left: 4px solid var(--quote-bar);
+  background: var(--bg-code);
+  border-radius: 0 1px 6px 0;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 2.5em 0;
+}
+
+code {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 0.88em;
+  background: var(--accent-soft);
+  color: var(--accent);
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+}
+
+pre {
+  background: var(--bg-code);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 16px;
+  overflow-x: auto;
+}
+
+pre code {
+  background: none;
+  color: inherit;
+  padding: 10px;
+  font-size: 0.85em;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  display: block;
+  overflow-x: auto;
+}
+
+th, td {
+  border: 1px solid var(--border);
+  padding: 8px 13px;
+  text-align: left;
+}
+
+th {
+  background: var(--bg-code);
+  font-weight: 600;
+}
+
+tr:nth-child(even) { background: var(--bg-code); }
+
+/* Badges/shields look tighter inline */
+p img { vertical-align: middle; margin-right: 10px; }
+
+/* Task lists */
+ul.task-list { list-style: none; padding-left: 2em; }
+ul.task-list li { margin-left: 0; }
+
+/* Table of contents (pandoc --toc) */
+nav#TOC {
+  background: var(--bg-code);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px 24px;
+  margin-bottom: 2.5em;
+}
+
+nav#TOC::before {
+  content: "Contents";
+  display: block;
+  font-weight: 650;
+  font-size: 0.9em;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.6em;
+}
+
+nav#TOC ul {
+  list-style: none;
+  padding-left: 1em;
+  margin: 0;
+}
+
+nav#TOC > ul { padding-left: 0; }
+
+nav#TOC li { margin: 0.25em 0; }
+
+nav#TOC a {
+  color: var(--text);
+  font-size: 0.95em;
+}
+
+nav#TOC a:hover { color: var(--accent); text-decoration: none; }

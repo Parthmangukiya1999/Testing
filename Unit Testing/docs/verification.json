@@ -1,0 +1,60 @@
+{
+  "verified_at": "2026-10-06T14:22:35+03:00",
+  "versions": {
+    "node": "v24.19.0",
+    "npm": "11.9.0",
+    "chai": "6.3.0",
+    "mocha": "12.0.3"
+  },
+  "results": {
+    "main": {
+      "command": "npm start",
+      "exit_code": 0,
+      "stdout": "\n> mylib-arithmetic-project@1.0.0 start\n> node src/main.js\n\nArithmetic examples\n6 + 3 = 9\n6 - 3 = 3\n6 * 3 = 18\n6 / 3 = 2\n",
+      "stderr": ""
+    },
+    "tests": {
+      "command": "npm test",
+      "exit_code": 0,
+      "stdout": "\n> mylib-arithmetic-project@1.0.0 test\n> mocha\n\n\n\nTesting started\n  mylib.js (Assert style)\n    add()\n      \u2714 adds two positive numbers\n      \u2714 adds a negative number and a positive number\n      \u2714 adds decimals within a small rounding tolerance\n      \u2714 rejects a non-number in either input position\n    subtract()\n      \u2714 subtracts two positive numbers\n      \u2714 returns a negative result when the second number is larger\n      \u2714 rejects a non-number in either input position\n    multiply()\n      \u2714 multiplies two positive numbers\n      \u2714 multiplies a negative number by a positive number\n      \u2714 returns zero when multiplying by zero\n      \u2714 rejects a non-number in either input position\n    divide()\n      \u2714 divides two positive numbers\n      \u2714 returns a decimal result when needed\n      \u2714 returns zero when the numerator is zero\n      \u2714 rejects a non-number in either input position\n      \u2714 throws an error when the divisor is zero\n\n  mylib.js (Expect style)\n    add()\n      \u2714 adds two positive numbers\n      \u2714 adds a negative number and a positive number\n      \u2714 adds decimals within a small rounding tolerance\n      \u2714 rejects a non-number in either input position\n    subtract()\n      \u2714 subtracts two positive numbers\n      \u2714 returns a negative result when the second number is larger\n      \u2714 rejects a non-number in either input position\n    multiply()\n      \u2714 multiplies two positive numbers\n      \u2714 multiplies a negative number by a positive number\n      \u2714 returns zero when multiplying by zero\n      \u2714 rejects a non-number in either input position\n    divide()\n      \u2714 divides two positive numbers\n      \u2714 returns a decimal result when needed\n      \u2714 returns zero when the numerator is zero\n      \u2714 rejects a non-number in either input position\n      \u2714 throws an error when the divisor is zero\n\n  mylib.js (Should style)\n    add()\n      \u2714 adds two positive numbers\n      \u2714 adds a negative number and a positive number\n      \u2714 adds decimals within a small rounding tolerance\n      \u2714 rejects a non-number in either input position\n    subtract()\n      \u2714 subtracts two positive numbers\n      \u2714 returns a negative result when the second number is larger\n      \u2714 rejects a non-number in either input position\n    multiply()\n      \u2714 multiplies two positive numbers\n      \u2714 multiplies a negative number by a positive number\n      \u2714 returns zero when multiplying by zero\n      \u2714 rejects a non-number in either input position\n    divide()\n      \u2714 divides two positive numbers\n      \u2714 returns a decimal result when needed\n      \u2714 returns zero when the numerator is zero\n      \u2714 rejects a non-number in either input position\n      \u2714 throws an error when the divisor is zero\n\nTesting completed\n\n  48 passing (17ms)\n\n",
+      "stderr": ""
+    },
+    "assert": {
+      "command": "npm run test:assert",
+      "exit_code": 0,
+      "stdout": "\n> mylib-arithmetic-project@1.0.0 test:assert\n> mocha test/hooks.js test/mylib.assert.test.js\n\n\n\nTesting started\n  mylib.js (Assert style)\n    add()\n      \u2714 adds two positive numbers\n      \u2714 adds a negative number and a positive number\n      \u2714 adds decimals within a small rounding tolerance\n      \u2714 rejects a non-number in either input position\n    subtract()\n      \u2714 subtracts two positive numbers\n      \u2714 returns a negative result when the second number is larger\n      \u2714 rejects a non-number in either input position\n    multiply()\n      \u2714 multiplies two positive numbers\n      \u2714 multiplies a negative number by a positive number\n      \u2714 returns zero when multiplying by zero\n      \u2714 rejects a non-number in either input position\n    divide()\n      \u2714 divides two positive numbers\n      \u2714 returns a decimal result when needed\n      \u2714 returns zero when the numerator is zero\n      \u2714 rejects a non-number in either input position\n      \u2714 throws an error when the divisor is zero\n\nTesting completed\n\n  16 passing (8ms)\n\n",
+      "stderr": ""
+    },
+    "expect": {
+      "command": "npm run test:expect",
+      "exit_code": 0,
+      "stdout": "\n> mylib-arithmetic-project@1.0.0 test:expect\n> mocha test/hooks.js test/mylib.expect.test.js\n\n\n\nTesting started\n  mylib.js (Expect style)\n    add()\n      \u2714 adds two positive numbers\n      \u2714 adds a negative number and a positive number\n      \u2714 adds decimals within a small rounding tolerance\n      \u2714 rejects a non-number in either input position\n    subtract()\n      \u2714 subtracts two positive numbers\n      \u2714 returns a negative result when the second number is larger\n      \u2714 rejects a non-number in either input position\n    multiply()\n      \u2714 multiplies two positive numbers\n      \u2714 multiplies a negative number by a positive number\n      \u2714 returns zero when multiplying by zero\n      \u2714 rejects a non-number in either input position\n    divide()\n      \u2714 divides two positive numbers\n      \u2714 returns a decimal result when needed\n      \u2714 returns zero when the numerator is zero\n      \u2714 rejects a non-number in either input position\n      \u2714 throws an error when the divisor is zero\n\nTesting completed\n\n  16 passing (7ms)\n\n",
+      "stderr": ""
+    },
+    "should": {
+      "command": "npm run test:should",
+      "exit_code": 0,
+      "stdout": "\n> mylib-arithmetic-project@1.0.0 test:should\n> mocha test/hooks.js test/mylib.should.test.js\n\n\n\nTesting started\n  mylib.js (Should style)\n    add()\n      \u2714 adds two positive numbers\n      \u2714 adds a negative number and a positive number\n      \u2714 adds decimals within a small rounding tolerance\n      \u2714 rejects a non-number in either input position\n    subtract()\n      \u2714 subtracts two positive numbers\n      \u2714 returns a negative result when the second number is larger\n      \u2714 rejects a non-number in either input position\n    multiply()\n      \u2714 multiplies two positive numbers\n      \u2714 multiplies a negative number by a positive number\n      \u2714 returns zero when multiplying by zero\n      \u2714 rejects a non-number in either input position\n    divide()\n      \u2714 divides two positive numbers\n      \u2714 returns a decimal result when needed\n      \u2714 returns zero when the numerator is zero\n      \u2714 rejects a non-number in either input position\n      \u2714 throws an error when the divisor is zero\n\nTesting completed\n\n  16 passing (8ms)\n\n",
+      "stderr": ""
+    },
+    "direct_tests": {
+      "command": "npx --no-install mocha",
+      "exit_code": 0,
+      "stdout": "\n\nTesting started\n  mylib.js (Assert style)\n    add()\n      \u2714 adds two positive numbers\n      \u2714 adds a negative number and a positive number\n      \u2714 adds decimals within a small rounding tolerance\n      \u2714 rejects a non-number in either input position\n    subtract()\n      \u2714 subtracts two positive numbers\n      \u2714 returns a negative result when the second number is larger\n      \u2714 rejects a non-number in either input position\n    multiply()\n      \u2714 multiplies two positive numbers\n      \u2714 multiplies a negative number by a positive number\n      \u2714 returns zero when multiplying by zero\n      \u2714 rejects a non-number in either input position\n    divide()\n      \u2714 divides two positive numbers\n      \u2714 returns a decimal result when needed\n      \u2714 returns zero when the numerator is zero\n      \u2714 rejects a non-number in either input position\n      \u2714 throws an error when the divisor is zero\n\n  mylib.js (Expect style)\n    add()\n      \u2714 adds two positive numbers\n      \u2714 adds a negative number and a positive number\n      \u2714 adds decimals within a small rounding tolerance\n      \u2714 rejects a non-number in either input position\n    subtract()\n      \u2714 subtracts two positive numbers\n      \u2714 returns a negative result when the second number is larger\n      \u2714 rejects a non-number in either input position\n    multiply()\n      \u2714 multiplies two positive numbers\n      \u2714 multiplies a negative number by a positive number\n      \u2714 returns zero when multiplying by zero\n      \u2714 rejects a non-number in either input position\n    divide()\n      \u2714 divides two positive numbers\n      \u2714 returns a decimal result when needed\n      \u2714 returns zero when the numerator is zero\n      \u2714 rejects a non-number in either input position\n      \u2714 throws an error when the divisor is zero\n\n  mylib.js (Should style)\n    add()\n      \u2714 adds two positive numbers\n      \u2714 adds a negative number and a positive number\n      \u2714 adds decimals within a small rounding tolerance\n      \u2714 rejects a non-number in either input position\n    subtract()\n      \u2714 subtracts two positive numbers\n      \u2714 returns a negative result when the second number is larger\n      \u2714 rejects a non-number in either input position\n    multiply()\n      \u2714 multiplies two positive numbers\n      \u2714 multiplies a negative number by a positive number\n      \u2714 returns zero when multiplying by zero\n      \u2714 rejects a non-number in either input position\n    divide()\n      \u2714 divides two positive numbers\n      \u2714 returns a decimal result when needed\n      \u2714 returns zero when the numerator is zero\n      \u2714 rejects a non-number in either input position\n      \u2714 throws an error when the divisor is zero\n\nTesting completed\n\n  48 passing (16ms)\n\n",
+      "stderr": ""
+    }
+  },
+  "checks": {
+    "correct_main_output": true,
+    "full_suite_passed": 48,
+    "individual_style_cases_passed": {
+      "assert": 16,
+      "expect": 16,
+      "should": 16
+    },
+    "hooks_ran_once_in_each_test_command": true,
+    "hooks_ran_before_and_after_test_cases": true,
+    "tests_did_not_execute_main": true,
+    "direct_mocha_command_passed": true
+  }
+}

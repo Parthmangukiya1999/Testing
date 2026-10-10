@@ -1,0 +1,9 @@
+
+> mylib-arithmetic-project@1.0.0 start
+> node src/main.js
+
+Arithmetic examples
+6 + 3 = 9
+6 - 3 = 3
+6 * 3 = 18
+6 / 3 = 2

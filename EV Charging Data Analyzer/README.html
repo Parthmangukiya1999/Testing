@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>EV Charging Data Analyzer</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <style>
+/* ============================================================
+   Modern README Stylesheet
+   Use with pandoc:
+   pandoc README.md -o README.html --standalone --metadata title="README" -c readme-style.css --highlight-style=pygments
+   ============================================================ */
+
+:root {
+  --bg: #ffffff;
+  --bg-code: #f6f8fa;
+  --text: #1f2328;
+  --text-muted: #57606a;
+  --border: #d0d7de;
+  --accent: #0969da;
+  --accent-soft: #ddf4ff;
+  --quote-bar: #d0d7de;
+  --max-width: 860px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #01060f;
+    --bg-code: #161b22;
+    --text: #e6edf3;
+    --text-muted: #9198a1;
+    --border: #30363d;
+    --accent: #4493f8;
+    --accent-soft: #0c2d6b;
+    --quote-bar: #30363d;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  padding: 48px 24px 96px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", Helvetica, Arial, sans-serif;
+  font-size: 22px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrapper, body > * {
+  max-width: var(--max-width);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 650;
+  line-height: 1.3;
+  margin-top: 2em;
+  margin-bottom: 0.6em;
+  scroll-margin-top: 24px;
+}
+
+h1 {
+  font-size: 2.2em;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid var(--border);
+  margin-top: 0;
+}
+
+h2 {
+  font-size: 1.6em;
+  padding-bottom: 0.25em;
+  border-bottom: 1px solid var(--border);
+}
+
+h3 { font-size: 1.3em; }
+h4 { font-size: 1.1em; }
+
+p, ul, ol, blockquote, table, pre { margin-bottom: 1em; }
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+ul, ol { padding-left: 1.9em; }
+li + li { margin-top: 0.25em; }
+
+blockquote {
+  margin: 1em 0;
+  padding: 0.2em 1em;
+  color: var(--text-muted);
+  border-left: 4px solid var(--quote-bar);
+  background: var(--bg-code);
+  border-radius: 0 1px 6px 0;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 2.5em 0;
+}
+
+code {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 0.88em;
+  background: var(--accent-soft);
+  color: var(--accent);
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+}
+
+pre {
+  background: var(--bg-code);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 16px;
+  overflow-x: auto;
+}
+
+pre code {
+  background: none;
+  color: inherit;
+  padding: 10px;
+  font-size: 0.85em;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  display: block;
+  overflow-x: auto;
+}
+
+th, td {
+  border: 1px solid var(--border);
+  padding: 8px 13px;
+  text-align: left;
+}
+
+th {
+  background: var(--bg-code);
+  font-weight: 600;
+}
+
+tr:nth-child(even) { background: var(--bg-code); }
+
+/* Badges/shields look tighter inline */
+p img { vertical-align: middle; margin-right: 10px; }
+
+/* Task lists */
+ul.task-list { list-style: none; padding-left: 2em; }
+ul.task-list li { margin-left: 0; }
+
+/* Table of contents (pandoc --toc) */
+nav#TOC {
+  background: var(--bg-code);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px 24px;
+  margin-bottom: 2.5em;
+}
+
+nav#TOC::before {
+  content: "Contents";
+  display: block;
+  font-weight: 650;
+  font-size: 0.9em;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.6em;
+}
+
+nav#TOC ul {
+  list-style: none;
+  padding-left: 1em;
+  margin: 0;
+}
+
+nav#TOC > ul { padding-left: 0; }
+
+nav#TOC li { margin: 0.25em 0; }
+
+nav#TOC a {
+  color: var(--text);
+  font-size: 0.95em;
+}
+
+nav#TOC a:hover { color: var(--accent); text-decoration: none; }
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">EV Charging Data Analyzer</h1>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#ev-charging-data-analyzer"
+id="toc-ev-charging-data-analyzer">EV Charging Data Analyzer</a>
+<ul>
+<li><a href="#about-the-project" id="toc-about-the-project">1. About the
+Project</a></li>
+<li><a href="#purpose" id="toc-purpose">2. Purpose</a></li>
+<li><a href="#what-the-programme-does"
+id="toc-what-the-programme-does">3. What the Programme Does</a></li>
+<li><a href="#technologies-used" id="toc-technologies-used">4.
+Technologies Used</a></li>
+<li><a href="#project-files" id="toc-project-files">5. Project
+Files</a></li>
+<li><a href="#requirements" id="toc-requirements">6.
+Requirements</a></li>
+<li><a href="#installation" id="toc-installation">7.
+Installation</a></li>
+<li><a href="#how-to-run-the-programme"
+id="toc-how-to-run-the-programme">8. How to Run the Programme</a></li>
+<li><a href="#example-of-the-results" id="toc-example-of-the-results">9.
+Example of the Results</a></li>
+<li><a href="#charging-results" id="toc-charging-results">10. Charging
+Results</a></li>
+<li><a href="#missing-data" id="toc-missing-data">11. Missing
+Data</a></li>
+<li><a href="#charts" id="toc-charts">12. Charts</a></li>
+<li><a href="#input-data" id="toc-input-data">13. Input Data</a></li>
+<li><a href="#error-messages" id="toc-error-messages">14. Error
+Messages</a></li>
+<li><a href="#current-limitations" id="toc-current-limitations">15.
+Current Limitations</a></li>
+<li><a href="#possible-future-improvements"
+id="toc-possible-future-improvements">16. Possible Future
+Improvements</a></li>
+<li><a href="#maintainer" id="toc-maintainer">17. Maintainer</a></li>
+<li><a href="#summary" id="toc-summary">18. Summary</a></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="ev-charging-data-analyzer">EV Charging Data Analyzer</h1>
+<h2 id="about-the-project">1. About the Project</h2>
+<p>The <strong>EV Charging Data Analyzer</strong> is a Python programme
+that looks at electric vehicle (EV) charging data.</p>
+<p>The programme reads data from a CSV file and gives simple information
+about EV charging. It also creates charts to make the results easier to
+understand.</p>
+<p>The programme can show:</p>
+<ul>
+<li>How many charging records are in the file</li>
+<li>The names of the data columns</li>
+<li>Missing data</li>
+<li>Average energy used</li>
+<li>Average charging time</li>
+<li>Average charging speed</li>
+<li>Average charging cost</li>
+<li>Charging sessions by location</li>
+<li>Charging speed for different charger types</li>
+<li>Energy used by different car models</li>
+</ul>
+<hr />
+<h2 id="purpose">2. Purpose</h2>
+<p>The main purpose of this project is to make EV charging data easier
+to understand.</p>
+<p>For example, the programme can help answer questions such as:</p>
+<ul>
+<li>How much energy is used during an average charging session?</li>
+<li>How long does charging normally take?</li>
+<li>Which charger type has the highest average charging speed?</li>
+<li>Which car model uses the most energy?</li>
+<li>Which location has the most charging sessions?</li>
+</ul>
+<p>The programme also creates charts so that the results can be seen
+more easily.</p>
+<hr />
+<h2 id="what-the-programme-does">3. What the Programme Does</h2>
+<p>When the programme starts, it reads the EV charging data from a CSV
+file.</p>
+<p>It then:</p>
+<ol type="1">
+<li>Loads the data.</li>
+<li>Shows the number of rows and columns.</li>
+<li>Shows the names of the columns.</li>
+<li>Checks for missing data.</li>
+<li>Calculates average charging information.</li>
+<li>Compares different charger types.</li>
+<li>Compares different vehicle models.</li>
+<li>Counts charging sessions by location.</li>
+<li>Creates three charts.</li>
+<li>Saves the charts in the <code>output</code> folder.</li>
+</ol>
+<hr />
+<h2 id="technologies-used">4. Technologies Used</h2>
+<p>The programme is written in <strong>Python</strong>.</p>
+<p>It uses two external Python packages:</p>
+<h3 id="pandas">Pandas</h3>
+<p>Pandas is used to read the CSV file and work with the data.</p>
+<p>It helps the programme:</p>
+<ul>
+<li>Read the data</li>
+<li>Find missing values</li>
+<li>Calculate averages</li>
+<li>Group information</li>
+<li>Count records</li>
+</ul>
+<h3 id="matplotlib">Matplotlib</h3>
+<p>Matplotlib is used to create the charts.</p>
+<p>The programme uses it to create and save the following charts:</p>
+<ul>
+<li>Charging sessions by location</li>
+<li>Average charging rate by charger type</li>
+<li>Average energy use by vehicle model</li>
+</ul>
+<hr />
+<h2 id="project-files">5. Project Files</h2>
+<p>The project has the following structure:</p>
+<pre class="text"><code>EV Charging Data Analyzer/
+│
+├── data/
+│   └── ev_charging_patterns.csv
+│
+├── output/
+│   ├── charging_sessions_by_location.png
+│   ├── charging_rate_by_charger_type.png
+│   └── energy_by_vehicle_model.png
+│
+├── ev_charging_analyzer.py
+├── requirements.txt
+└── readme.md</code></pre>
+<h3 id="what-each-file-is-for">What each file is for</h3>
+<table>
+<colgroup>
+<col style="width: 38%" />
+<col style="width: 61%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>File or folder</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>data/</code></td>
+<td>Contains the EV charging data</td>
+</tr>
+<tr class="even">
+<td><code>output/</code></td>
+<td>Contains the charts made by the programme</td>
+</tr>
+<tr class="odd">
+<td><code>ev_charging_analyzer.py</code></td>
+<td>Main Python programme</td>
+</tr>
+<tr class="even">
+<td><code>requirements.txt</code></td>
+<td>Lists the Python packages needed</td>
+</tr>
+<tr class="odd">
+<td><code>readme.md</code></td>
+<td>Project instructions and information</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="requirements">6. Requirements</h2>
+<p>Before running the programme, you need:</p>
+<ul>
+<li>Python 3</li>
+<li>pip</li>
+<li>The EV charging CSV file</li>
+</ul>
+<p>You can check if Python is installed by running:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">--version</span></span></code></pre></div>
+<p>You can check pip by running:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> <span class="at">--version</span></span></code></pre></div>
+<hr />
+<h2 id="installation">7. Installation</h2>
+<h3 id="step-1-open-the-project-folder">Step 1: Open the project
+folder</h3>
+<p>Open a terminal or Command Prompt and go to the project folder.</p>
+<p>For example:</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> <span class="st">&quot;EV Charging Data Analyzer&quot;</span></span></code></pre></div>
+<h3 id="step-2-install-the-required-packages">Step 2: Install the
+required packages</h3>
+<p>Run:</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> pip install <span class="at">-r</span> requirements.txt</span></code></pre></div>
+<p>The file installs:</p>
+<pre class="text"><code>pandas
+matplotlib</code></pre>
+<h3 id="step-3-check-the-data-file">Step 3: Check the data file</h3>
+<p>If the downloaded project contains a folder named <code>Data</code>,
+rename it to <code>data</code>. The folder name must match the lowercase
+path used by the Python programme, especially on case-sensitive
+systems.</p>
+<p>Make sure the CSV file is in:</p>
+<pre class="text"><code>data/ev_charging_patterns.csv</code></pre>
+<hr />
+<h2 id="how-to-run-the-programme">8. How to Run the Programme</h2>
+<p>After installing everything, run:</p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> ev_charging_analyzer.py</span></code></pre></div>
+<p>The programme will start reading the data and show the results in the
+terminal.</p>
+<p>After the analysis is finished, the charts will be saved in the
+<code>output</code> folder.</p>
+<hr />
+<h2 id="example-of-the-results">9. Example of the Results</h2>
+<p>The current dataset contains:</p>
+<ul>
+<li><strong>1,320 charging sessions</strong></li>
+<li><strong>20 columns</strong></li>
+</ul>
+<p>The programme found the following average values:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Information</th>
+<th style="text-align: right;">Result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Average energy used</td>
+<td style="text-align: right;">42.64 kWh</td>
+</tr>
+<tr class="even">
+<td>Average charging time</td>
+<td style="text-align: right;">2.27 hours</td>
+</tr>
+<tr class="odd">
+<td>Average charging rate</td>
+<td style="text-align: right;">25.96 kW</td>
+</tr>
+<tr class="even">
+<td>Average charging cost</td>
+<td style="text-align: right;">$22.55</td>
+</tr>
+</tbody>
+</table>
+<p>These results are based on the current dataset. The results may be
+different if another dataset is used.</p>
+<hr />
+<h2 id="charging-results">10. Charging Results</h2>
+<h3 id="charger-types">Charger Types</h3>
+<p>The programme compares the average charging rate for each charger
+type.</p>
+<p>The current results are:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Charger type</th>
+<th style="text-align: right;">Average charging rate</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Level 2</td>
+<td style="text-align: right;">26.33 kW</td>
+</tr>
+<tr class="even">
+<td>Level 1</td>
+<td style="text-align: right;">26.00 kW</td>
+</tr>
+<tr class="odd">
+<td>DC Fast Charger</td>
+<td style="text-align: right;">25.55 kW</td>
+</tr>
+</tbody>
+</table>
+<p>In this dataset, <strong>Level 2</strong> has the highest average
+charging rate.</p>
+<hr />
+<h3 id="vehicle-models">Vehicle Models</h3>
+<p>The programme also compares the average energy used by each vehicle
+model.</p>
+<p>The current results are:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Vehicle model</th>
+<th style="text-align: right;">Average energy used</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Tesla Model 3</td>
+<td style="text-align: right;">44.52 kWh</td>
+</tr>
+<tr class="even">
+<td>Hyundai Kona</td>
+<td style="text-align: right;">42.83 kWh</td>
+</tr>
+<tr class="odd">
+<td>Nissan Leaf</td>
+<td style="text-align: right;">42.51 kWh</td>
+</tr>
+<tr class="even">
+<td>BMW i3</td>
+<td style="text-align: right;">42.45 kWh</td>
+</tr>
+<tr class="odd">
+<td>Chevy Bolt</td>
+<td style="text-align: right;">40.74 kWh</td>
+</tr>
+</tbody>
+</table>
+<p>In this dataset, the <strong>Tesla Model 3</strong> has the highest
+average energy use.</p>
+<hr />
+<h3 id="charging-locations">Charging Locations</h3>
+<p>The programme counts the number of charging sessions at each
+location.</p>
+<p>The current results are:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Location</th>
+<th style="text-align: right;">Charging sessions</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Los Angeles</td>
+<td style="text-align: right;">297</td>
+</tr>
+<tr class="even">
+<td>San Francisco</td>
+<td style="text-align: right;">264</td>
+</tr>
+<tr class="odd">
+<td>Houston</td>
+<td style="text-align: right;">262</td>
+</tr>
+<tr class="even">
+<td>New York</td>
+<td style="text-align: right;">255</td>
+</tr>
+<tr class="odd">
+<td>Chicago</td>
+<td style="text-align: right;">242</td>
+</tr>
+</tbody>
+</table>
+<p>In this dataset, <strong>Los Angeles</strong> has the highest number
+of charging sessions.</p>
+<hr />
+<h2 id="missing-data">11. Missing Data</h2>
+<p>The programme also checks for missing information.</p>
+<p>In the current dataset, there are 66 missing values in each of these
+columns:</p>
+<ul>
+<li>Energy Consumed (kWh)</li>
+<li>Charging Rate (kW)</li>
+<li>Distance Driven (since last charge) (km)</li>
+</ul>
+<p>The programme reports these missing values but does not automatically
+fill them.</p>
+<hr />
+<h2 id="charts">12. Charts</h2>
+<p>The programme creates three charts.</p>
+<h3 id="charging-sessions-by-location">1. Charging Sessions by
+Location</h3>
+<p>File:</p>
+<pre class="text"><code>output/charging_sessions_by_location.png</code></pre>
+<p>This chart shows the number of charging sessions in each
+location.</p>
+<h3 id="average-charging-rate-by-charger-type">2. Average Charging Rate
+by Charger Type</h3>
+<p>File:</p>
+<pre class="text"><code>output/charging_rate_by_charger_type.png</code></pre>
+<p>This chart compares the average charging rate of the different
+charger types.</p>
+<h3 id="average-energy-use-by-vehicle-model">3. Average Energy Use by
+Vehicle Model</h3>
+<p>File:</p>
+<pre class="text"><code>output/energy_by_vehicle_model.png</code></pre>
+<p>This chart compares the average energy used by different vehicle
+models.</p>
+<hr />
+<h2 id="input-data">13. Input Data</h2>
+<p>The programme uses the following data columns:</p>
+<pre class="text"><code>User ID
+Vehicle Model
+Battery Capacity (kWh)
+Charging Station ID
+Charging Station Location
+Charging Start Time
+Charging End Time
+Energy Consumed (kWh)
+Charging Duration (hours)
+Charging Rate (kW)
+Charging Cost (USD)
+Time of Day
+Day of Week
+State of Charge (Start %)
+State of Charge (End %)
+Distance Driven (since last charge) (km)
+Temperature (°C)
+Vehicle Age (years)
+Charger Type
+User Type</code></pre>
+<hr />
+<h2 id="error-messages">14. Error Messages</h2>
+<p>If the CSV file cannot be found, the programme shows an error
+message.</p>
+<p>For example:</p>
+<pre class="text"><code>Error: File not found: data/ev_charging_patterns.csv</code></pre>
+<p>The programme also checks that the data needed for each analysis is
+available before doing that analysis.</p>
+<hr />
+<h2 id="current-limitations">15. Current Limitations</h2>
+<p>The current version has some simple limitations:</p>
+<ul>
+<li>It only reads CSV files.</li>
+<li>The data file must be in the <code>data</code> folder.</li>
+<li>The programme runs in the terminal.</li>
+<li>It does not have a graphical interface.</li>
+<li>It does not automatically fix missing data.</li>
+<li>It provides basic analysis and charts.</li>
+</ul>
+<hr />
+<h2 id="possible-future-improvements">16. Possible Future
+Improvements</h2>
+<p>The programme could be improved in the future by adding:</p>
+<ul>
+<li>More charts</li>
+<li>More data analysis</li>
+<li>Automatic handling of missing data</li>
+<li>Analysis of charging times</li>
+<li>Analysis of charging costs</li>
+<li>Temperature analysis</li>
+<li>An interactive dashboard</li>
+<li>Export of results to Excel</li>
+<li>A simple web interface</li>
+<li>Machine learning to predict charging demand</li>
+</ul>
+<hr />
+<h2 id="maintainer">17. Maintainer</h2>
+<p><strong>Maintainer:</strong> <strong>Parth Mangukiya</strong></p>
+<p><strong>Project:</strong> EV Charging Data Analyzer</p>
+<p>This project was created for educational purposes.</p>
+<hr />
+<h2 id="summary">18. Summary</h2>
+<p>The <strong>EV Charging Data Analyzer</strong> is a simple Python
+programme for working with EV charging data.</p>
+<p>It reads charging data from a CSV file, finds useful information,
+calculates averages, compares vehicles and chargers, counts charging
+sessions by location, and creates charts.</p>
+<p>The project shows how Python can be used to turn a large set of raw
+data into information that is easier to understand.</p>
+</body>
+</html>

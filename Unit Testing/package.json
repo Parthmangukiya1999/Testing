@@ -1,0 +1,25 @@
+{
+  "name": "mylib-arithmetic-project",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A JavaScript arithmetic library with Assert, Expect, and Should unit tests.",
+  "main": "src/mylib.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node src/main.js",
+    "test": "mocha",
+    "test:assert": "mocha test/hooks.js test/mylib.assert.test.js",
+    "test:expect": "mocha test/hooks.js test/mylib.expect.test.js",
+    "test:should": "mocha test/hooks.js test/mylib.should.test.js"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "devDependencies": {
+    "chai": "6.3.0",
+    "mocha": "12.0.3"
+  }
+}

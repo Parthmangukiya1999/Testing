@@ -1,0 +1,25 @@
+{
+  "name": "03-integration-testing",
+  "version": "1.0.0",
+  "description": "A hex-to-RGB JavaScript library and Express API with unit and integration tests.",
+  "main": "src/hexToRgb.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "mocha",
+    "test:unit": "mocha test/hexToRgb.test.js",
+    "test:integration": "mocha test/api.test.js"
+  },
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "chai": "^6.3.0",
+    "mocha": "^12.0.3",
+    "supertest": "^7.3.1"
+  }
+}

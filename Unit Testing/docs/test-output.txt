@@ -1,0 +1,77 @@
+
+> mylib-arithmetic-project@1.0.0 test
+> mocha
+
+
+
+Testing started
+  mylib.js (Assert style)
+    add()
+      ✔ adds two positive numbers
+      ✔ adds a negative number and a positive number
+      ✔ adds decimals within a small rounding tolerance
+      ✔ rejects a non-number in either input position
+    subtract()
+      ✔ subtracts two positive numbers
+      ✔ returns a negative result when the second number is larger
+      ✔ rejects a non-number in either input position
+    multiply()
+      ✔ multiplies two positive numbers
+      ✔ multiplies a negative number by a positive number
+      ✔ returns zero when multiplying by zero
+      ✔ rejects a non-number in either input position
+    divide()
+      ✔ divides two positive numbers
+      ✔ returns a decimal result when needed
+      ✔ returns zero when the numerator is zero
+      ✔ rejects a non-number in either input position
+      ✔ throws an error when the divisor is zero
+
+  mylib.js (Expect style)
+    add()
+      ✔ adds two positive numbers
+      ✔ adds a negative number and a positive number
+      ✔ adds decimals within a small rounding tolerance
+      ✔ rejects a non-number in either input position
+    subtract()
+      ✔ subtracts two positive numbers
+      ✔ returns a negative result when the second number is larger
+      ✔ rejects a non-number in either input position
+    multiply()
+      ✔ multiplies two positive numbers
+      ✔ multiplies a negative number by a positive number
+      ✔ returns zero when multiplying by zero
+      ✔ rejects a non-number in either input position
+    divide()
+      ✔ divides two positive numbers
+      ✔ returns a decimal result when needed
+      ✔ returns zero when the numerator is zero
+      ✔ rejects a non-number in either input position
+      ✔ throws an error when the divisor is zero
+
+  mylib.js (Should style)
+    add()
+      ✔ adds two positive numbers
+      ✔ adds a negative number and a positive number
+      ✔ adds decimals within a small rounding tolerance
+      ✔ rejects a non-number in either input position
+    subtract()
+      ✔ subtracts two positive numbers
+      ✔ returns a negative result when the second number is larger
+      ✔ rejects a non-number in either input position
+    multiply()
+      ✔ multiplies two positive numbers
+      ✔ multiplies a negative number by a positive number
+      ✔ returns zero when multiplying by zero
+      ✔ rejects a non-number in either input position
+    divide()
+      ✔ divides two positive numbers
+      ✔ returns a decimal result when needed
+      ✔ returns zero when the numerator is zero
+      ✔ rejects a non-number in either input position
+      ✔ throws an error when the divisor is zero
+
+Testing completed
+
+  48 passing (17ms)
+
