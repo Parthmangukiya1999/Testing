@@ -22,7 +22,7 @@ Mocha version and allow the CommonJS tests to load Chai.
 | `test/api.test.js` | Integration tests for the API. |
 | `package.json` | Dependencies, entry point and commands. |
 | `package-lock.json` | Exact dependency versions for repeatable installation. |
-| `.gitignore` | Excludes installed dependencies, environment files and local logs. |
+| `.gitignore` | Excludes installed dependencies, environment files and generated coverage files. |
 | `README.md` | Setup, usage and testing instructions. |
 
 ## Installation
