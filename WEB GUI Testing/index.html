@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<!--
+  File: index.html
+  Purpose: Basic interface for testing hex-to-RGB and RGB-to-hex conversion.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Colour Converter</title>
+
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+  <main>
+    <h1>Colour Converter</h1>
+    <p>Convert colours between hexadecimal and RGB formats.</p>
+
+    <!-- Hexadecimal-to-RGB conversion -->
+    <section aria-labelledby="hex-heading">
+      <h2 id="hex-heading">Hex to RGB</h2>
+
+      <form id="hex-form" novalidate>
+        <label for="hex-input">Hex colour</label>
+
+        <input
+          type="text"
+          id="hex-input"
+          name="hex"
+          placeholder="#FF5733"
+          aria-describedby="hex-help"
+          required
+        >
+
+        <p id="hex-help">
+          Enter six hexadecimal digits, with or without #.
+        </p>
+
+        <button type="submit" id="hex-convert-button">
+          Convert to RGB
+        </button>
+      </form>
+
+      <p id="hex-error" class="error" role="alert"></p>
+      <p id="hex-result" class="result" role="status"></p>
+    </section>
+
+    <!-- RGB-to-hexadecimal conversion -->
+    <section aria-labelledby="rgb-heading">
+      <h2 id="rgb-heading">RGB to Hex</h2>
+
+      <p id="rgb-help">
+        Enter a whole number from 0 to 255 for each colour.
+      </p>
+
+      <form id="rgb-form" novalidate>
+        <div class="rgb-inputs">
+          <div>
+            <label for="red-input">Red (R)</label>
+            <input
+              type="number"
+              id="red-input"
+              name="red"
+              min="0"
+              max="255"
+              step="1"
+              placeholder="255"
+              aria-describedby="rgb-help"
+              required
+            >
+          </div>
+
+          <div>
+            <label for="green-input">Green (G)</label>
+            <input
+              type="number"
+              id="green-input"
+              name="green"
+              min="0"
+              max="255"
+              step="1"
+              placeholder="87"
+              aria-describedby="rgb-help"
+              required
+            >
+          </div>
+
+          <div>
+            <label for="blue-input">Blue (B)</label>
+            <input
+              type="number"
+              id="blue-input"
+              name="blue"
+              min="0"
+              max="255"
+              step="1"
+              placeholder="51"
+              aria-describedby="rgb-help"
+              required
+            >
+          </div>
+        </div>
+
+        <button type="submit" id="rgb-convert-button">
+          Convert to Hex
+        </button>
+      </form>
+
+      <p id="rgb-error" class="error" role="alert"></p>
+      <p id="rgb-result" class="result" role="status"></p>
+    </section>
+
+    <!-- Preview stays inside main so it matches the form width. -->
+    <section aria-labelledby="preview-heading">
+      <h2 id="preview-heading">Colour preview</h2>
+
+      <div id="colour-preview" aria-hidden="true"></div>
+
+      <p id="preview-text" role="status">
+        Convert a valid colour to see its preview.
+      </p>
+    </section>
+  </main>
+</body>
+</html>

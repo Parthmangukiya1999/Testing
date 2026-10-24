@@ -1,0 +1,117 @@
+/*
+  File: style.css
+  Purpose: Simple, responsive styling for the colour converter.
+*/
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 24px 16px;
+  font-family: Arial, sans-serif;
+  line-height: 1.5;
+  color: #222222;
+  background-color: #f4f6f8;
+}
+
+main {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+h1 {
+  margin-bottom: 8px;
+}
+
+h2 {
+  margin-top: 0;
+}
+
+section {
+  margin-top: 24px;
+  padding: 24px;
+  border: 1px solid #cccccc;
+  border-radius: 8px;
+  background-color: #ffffff;
+}
+
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: bold;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #767676;
+  border-radius: 4px;
+  font: inherit;
+}
+
+button {
+  margin-top: 16px;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 4px;
+  font: inherit;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #005ea8;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #004578;
+}
+
+/* Keep keyboard focus clearly visible. */
+input:focus-visible,
+button:focus-visible {
+  outline: 3px solid #222222;
+  outline-offset: 3px;
+}
+
+/* Display the three RGB inputs beside each other. */
+.rgb-inputs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.error {
+  color: #b00020;
+  font-weight: bold;
+}
+
+.result {
+  padding: 12px;
+  border-left: 4px solid #005ea8;
+  background-color: #eef5fc;
+  font-weight: bold;
+}
+
+/* Hide message areas until JavaScript adds text. */
+.error:empty,
+.result:empty {
+  display: none;
+}
+
+/* Stack RGB inputs vertically on small screens. */
+@media (max-width: 420px) {
+  .rgb-inputs {
+    grid-template-columns: 1fr;
+  }
+
+  section {
+    padding: 16px;
+  }
+}
+/* A border keeps white and very light colours visible. */
+#colour-preview {
+  height: 70px;
+  border: 1px solid #767676;
+  border-radius: 4px;
+}
