@@ -68,19 +68,6 @@ Testing includes:
 - pandas and matplotlib
 - Git and GitHub
 
-## Running the Projects
-
-Open the relevant project directory and follow its README for setup
-and execution instructions.
-
-For the UI Testing project:
-
-    cd "UI Testing"
-    npm ci
-    npm test
-
-Open its index.html file in a browser to use the application.
-
 ## Purpose
 
 The repository organises coursework projects in one place and
