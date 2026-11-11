@@ -1,0 +1,31 @@
+2026-05-20 10:01:10,001 - INFO - Starting application version 1.3.2
+2026-05-20 10:01:10,102 - DEBUG - Loading configuration file config.json
+2026-05-20 10:01:10,150 - DEBUG - Configuration loaded: db_host=localhost, timeout=2
+2026-05-20 10:01:10,210 - INFO - Initializing database connection pool
+2026-05-20 10:01:10,215 - DEBUG - Attempt 1 to connect to database
+2026-05-20 10:01:10,350 - INFO - Database connection established
+2026-05-20 10:01:10,351 - INFO - Service ready to accept requests
+
+2026-05-20 10:01:11,002 - INFO - Received request: GET /users
+2026-05-20 10:01:11,150 - DEBUG - Executing query: SELECT * FROM users
+2026-05-20 10:01:11,300 - INFO - Request processed successfully
+
+2026-05-20 10:01:12,100 - INFO - Received request: GET /orders
+2026-05-20 10:01:12,200 - WARNING - Database response slower than expected
+2026-05-20 10:01:12,350 - ERROR - Query failed: database connection lost
+2026-05-20 10:01:12,351 - INFO - Retrying query (attempt 2)
+2026-05-20 10:01:12,600 - ERROR - Query failed again: timeout
+2026-05-20 10:01:12,601 - ERROR - Returning 500 error to client
+
+2026-05-20 10:01:13,000 - WARNING - High memory usage detected
+2026-05-20 10:01:13,050 - DEBUG - current_memory=512MB, threshold=500MB
+
+2026-05-20 10:01:13,200 - INFO - Attempting database reconnect
+2026-05-20 10:01:13,400 - ERROR - Reconnect failed: connection refused
+
+2026-05-20 10:01:13,500 - WARNING - Database might be slow
+
+2026-05-20 10:01:13,500 - ERROR - Application entering degraded mode
+2026-05-20 10:01:14,000 - DEBUG - Health check failed: database unreachable
+
+2026-05-20 10:01:15,000 - ERROR - Critical failure: shutting down application

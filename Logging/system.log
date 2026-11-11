@@ -1,0 +1,17 @@
+May 20 10:01:09 server systemdStarting Database Service...
+May 20 10:01:10 server systemdDatabase Service started successfully
+
+May 20 10:01:11 server kernel: CPU0: Temperature normal
+
+May 20 10:01:12 server kernel: Memory usage high: 92%
+May 20 10:01:12 server kernel: Out of memory: Kill process 2451 (mysqld) score 987
+
+May 20 10:01:12 server systemdDatabase Service: Main process exited, code=killed
+May 20 10:01:12 server systemdDatabase Service entered failed state
+
+May 20 10:01:13 server systemdRestarting Database Service...
+May 20 10:01:13 server systemdFailed to start Database Service
+
+May 20 10:01:13 server kernel: Memory usage still critical
+
+May 20 10:01:14 server systemdDatabase Service entered failed state (retry limit reached)
